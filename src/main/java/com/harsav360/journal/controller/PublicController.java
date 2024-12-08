@@ -1,12 +1,18 @@
 package com.harsav360.journal.controller;
 
+import com.harsav360.journal.entity.User;
+import com.harsav360.journal.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class HealthCheck {
+@RequestMapping("/public")
+public class PublicController {
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/health-check")
     public ResponseEntity<String> healthCheck() {
@@ -17,5 +23,10 @@ public class HealthCheck {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @PostMapping("/create-user")
+    public void createUser(@RequestBody User user){
+        userService.saveEntry(user);
     }
 }
