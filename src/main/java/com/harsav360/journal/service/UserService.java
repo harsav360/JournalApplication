@@ -4,6 +4,8 @@ package com.harsav360.journal.service;
 import com.harsav360.journal.entity.User;
 import com.harsav360.journal.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,11 +22,17 @@ public class UserService {
     private UserRepository userRepo;
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public void saveNewEntry(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(List.of("USER"));
-        userRepo.save(user);
+        try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(List.of("USER"));
+            userRepo.save(user);
+        } catch(Exception e) {
+            logger.error("Error occurred for {} : ",user.getUsername(),e);
+        }
+
     }
 
     public void saveAdmin(User user){
