@@ -4,6 +4,8 @@ import com.harsav360.journal.entity.JournalEntry;
 import com.harsav360.journal.entity.User;
 import com.harsav360.journal.repository.JournalEntryRepo;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class JournalEntryService {
@@ -20,6 +23,8 @@ public class JournalEntryService {
 
     @Autowired
     private UserService userService;
+
+    private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
     @Transactional
     public void saveEntry(JournalEntry journalEntry, String userName){
@@ -31,7 +36,7 @@ public class JournalEntryService {
             userService.saveUser(user);
 
         } catch (Exception e){
-            System.out.println(e);
+            logger.info("Here is complete message",e);
             throw new RuntimeException("An Error Occurred while saving the entry - ", e);
         }
 
