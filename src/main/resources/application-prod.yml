@@ -1,0 +1,22 @@
+#spring.application.name=JournalApp
+#spring.data.mongodb.host=localhost
+#spring.data.mongodb.port=27017
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://annu7418:MSjYiLuI3LBU4uHV@learnmongo.8kjox.mongodb.net/?retryWrites=true&w=majority&appName=learnMongo
+      database: journaldb
+      auto-index-creation: true
+  main:
+    allow-circular-references: true
+
+
+server:
+  port: 8081
+
+#logging.level.org.springframework.security=DEBUG
+#logging.level.org.springframework.security.web.access.intercept=DEBUG
+#logging.level.org.springframework.security.web.FilterChainProxy=DEBUG
+
+
+
