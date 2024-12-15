@@ -3,6 +3,7 @@ package com.harsav360.journal.service;
 
 import com.harsav360.journal.entity.User;
 import com.harsav360.journal.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +17,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
     private UserRepository userRepo;
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public void saveNewEntry(User user){
         try{
@@ -30,7 +31,7 @@ public class UserService {
             user.setRoles(List.of("USER"));
             userRepo.save(user);
         } catch(Exception e) {
-            logger.error("Error occurred for {} : ",user.getUsername(),e);
+            log.error("Error occurred for {} : ",user.getUsername(),e);
         }
 
     }
