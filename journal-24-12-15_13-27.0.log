@@ -1,0 +1,10 @@
+13:27:57.998 [main] INFO  c.h.journal.JournalApplication - Starting JournalApplication using Java 17.0.7 with PID 22740 (D:\OneDrive\Desktop\Code Development\Microservices Dev\Spring Boot Projects\journal\target\classes started by Annu Sharma in D:\OneDrive\Desktop\Code Development\Microservices Dev\Spring Boot Projects\journal)
+13:27:58.009 [main] INFO  c.h.journal.JournalApplication - The following 1 profile is active: "dev"
+13:27:58.902 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+13:27:58.977 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 2 MongoDB repository interfaces.
+13:27:59.659 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+13:27:59.668 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+13:27:59.670 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+13:27:59.670 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+13:27:59.728 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+13:27:59.729 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1631 ms
