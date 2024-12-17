@@ -1,8 +1,10 @@
 package com.harsav360.journal.controller;
 
+import com.harsav360.journal.api.response.WeatherResponse;
 import com.harsav360.journal.entity.User;
 import com.harsav360.journal.repository.UserRepository;
 import com.harsav360.journal.service.UserService;
+import com.harsav360.journal.service.WeatherService;
 import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WeatherService weatherService;
 
     @GetMapping
     public List<User> getAllUsers(){
@@ -53,7 +58,16 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/greeting")
+    public ResponseEntity<?> greeting(){
 
-
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        WeatherResponse weatherResponse = weatherService.getWeather("New York");
+        String greeting = "";
+        if (weatherResponse != null){
+            greeting =  ", Weather feels like "+ weatherResponse.getCurrent().getFeelsLike();
+        }
+        return new ResponseEntity<>("Hi "+username + " "+greeting,HttpStatus.OK);
+    }
 }

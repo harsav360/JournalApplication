@@ -12,6 +12,9 @@ spring:
 server:
   port: 8080
 
+weather:
+  api:
+    key: 3a177ea5a9b117765f84a176d7ad97c3
 #logging.level.org.springframework.security=DEBUG
 #logging.level.org.springframework.security.web.access.intercept=DEBUG
 #logging.level.org.springframework.security.web.FilterChainProxy=DEBUG

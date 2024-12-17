@@ -3,6 +3,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+# Ignore all environment-specific application YAML files
+application-*.yml
+
+# Ignore the main application.yml (optional)
+application.yml
 
 ### STS ###
 .apt_generated
