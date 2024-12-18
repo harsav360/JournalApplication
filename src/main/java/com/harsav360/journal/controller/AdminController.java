@@ -1,5 +1,6 @@
 package com.harsav360.journal.controller;
 
+import com.harsav360.journal.cache.AppCache;
 import com.harsav360.journal.entity.User;
 import com.harsav360.journal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    private AppCache appCache;
+
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers(){
         List<User> all = userService.getAll();
@@ -28,6 +31,11 @@ public class AdminController {
     @PostMapping("/create-admin-user")
     public void createUser(@RequestBody User user){
         userService.saveAdmin(user);
+    }
+
+    @GetMapping("clear-app-cache")
+    public void clearAppCache(){
+        appCache.init();
     }
 
 }
