@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class UserScheduler {
@@ -34,7 +33,7 @@ public class UserScheduler {
         List<User> users =  userRepositoryImp.getUserForSA();
         for(User user : users) {
             List<JournalEntry> journalEntries = user.getJournalEntries();
-           List<String> filteredEntries = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getContent()).collect(Collectors.toList());
+           List<String> filteredEntries = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x -> x.getContent()).toList();
            String entry = String.join(" ",filteredEntries);
            String sentiment = sentimentAnalysisService.getSentiment(entry);
            emailService.sendMail(user.getEmail(),"Sentiment for last 7 days",sentiment);
