@@ -6,9 +6,12 @@ target/
 # Ignore all environment-specific application YAML files
 application-*.yml
 *.log
+# Ignore application.yml to prevent pushing sensitive data
+src/main/resources/application-dev.yml
 
-# Ignore the main application.yml (optional)
-application.yml
+
+
+
 
 ### STS ###
 .apt_generated
