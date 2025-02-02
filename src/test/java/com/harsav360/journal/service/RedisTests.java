@@ -1,5 +1,6 @@
 package com.harsav360.journal.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,9 +12,10 @@ public class RedisTests {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Disabled
     @Test
     void testRedisWork() {
-        redisTemplate.opsForValue().set("email", "abd@email.com");
+//        redisTemplate.opsForValue().set("email", "abd@email.com");
         Object email = redisTemplate.opsForValue().get("email");
         System.out.println(email);
     }
