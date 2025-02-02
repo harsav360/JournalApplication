@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 # Ignore all environment-specific application YAML files
 application-*.yml
+*.log
 
 # Ignore the main application.yml (optional)
 application.yml
