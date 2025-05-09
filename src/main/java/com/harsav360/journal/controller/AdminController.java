@@ -2,8 +2,9 @@ package com.harsav360.journal.controller;
 
 import com.harsav360.journal.cache.AppCache;
 import com.harsav360.journal.entity.User;
+import com.harsav360.journal.model.UserDTO;
 import com.harsav360.journal.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +13,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    private AppCache appCache;
+    private final AppCache appCache;
 
     @GetMapping("/all-users")
-    public ResponseEntity<?> getAllUsers(){
+    public ResponseEntity<List<User>> getAllUsers(){
         List<User> all = userService.getAll();
         if (all != null && !all.isEmpty()){
             return new ResponseEntity<>(all, HttpStatus.OK);
@@ -29,7 +30,7 @@ public class AdminController {
     }
 
     @PostMapping("/create-admin-user")
-    public void createUser(@RequestBody User user){
+    public void createUser(@RequestBody UserDTO user){
         userService.saveAdmin(user);
     }
 
