@@ -2,6 +2,7 @@ package com.harsav360.journal.service;
 
 
 import com.harsav360.journal.entity.User;
+import com.harsav360.journal.model.UserDTO;
 import com.harsav360.journal.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -36,10 +37,11 @@ public class UserService {
 
     }
 
-    public void saveAdmin(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(List.of("USER","ADMIN"));
-        userRepo.save(user);
+    public void saveAdmin(UserDTO user){
+        User userEntity = buildUserEntity(user);
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userEntity.setRoles(List.of("USER","ADMIN"));
+        userRepo.save(userEntity);
     }
 
     public void saveUser(User user){
@@ -60,6 +62,15 @@ public class UserService {
 
     public User findByUserName(String userName){
         return userRepo.findByusername(userName);
+    }
+
+    private User buildUserEntity(UserDTO userDto){
+        return User.builder()
+                .username(userDto.getUsername())
+                .email(userDto.getEmail())
+                .sentimentAnalysis(userDto.isSentimentAnalysis())
+                .password(userDto.getPassword()).build();
+
     }
 
 
