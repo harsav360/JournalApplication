@@ -3,8 +3,10 @@ package com.harsav360.journal.controller;
 
 import com.harsav360.journal.entity.JournalEntry;
 import com.harsav360.journal.entity.User;
+import com.harsav360.journal.model.JournalEntryDTO;
 import com.harsav360.journal.service.JournalEntryService;
 import com.harsav360.journal.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,24 +22,21 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/journal")
+@RequiredArgsConstructor
 public class JournalEntryControllerV2 {
 
-
-    @Autowired
-    private JournalEntryService journalEntryService;
-
-    @Autowired
-    private UserService userService;
+    private final JournalEntryService journalEntryService;
+    private final UserService userService;
 
     @GetMapping()
-    public ResponseEntity<List<JournalEntry>> getAllJournalEntriesOfUser() {
+    public ResponseEntity<List<JournalEntryDTO>> getAllJournalEntriesOfUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userService.findByUserName(username);
-        List<JournalEntry> all = user.getJournalEntries();
+        List<JournalEntryDTO> journalEntries = journalEntryService.getUserJournalEntries(user);
         try {
-            if (all != null){
-                return new ResponseEntity<>(all,HttpStatus.OK);
+            if (journalEntries != null){
+                return new ResponseEntity<>(journalEntries,HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
