@@ -2,7 +2,10 @@ package com.harsav360.journal.service;
 
 import com.harsav360.journal.entity.JournalEntry;
 import com.harsav360.journal.entity.User;
+import com.harsav360.journal.helper.JournalEntryHelper;
+import com.harsav360.journal.model.JournalEntryDTO;
 import com.harsav360.journal.repository.JournalEntryRepo;
+import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,18 +14,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
+@RequiredArgsConstructor
 public class JournalEntryService {
 
-    @Autowired
-    private JournalEntryRepo journalEntryRepo;
-
-    @Autowired
-    private UserService userService;
+    private final JournalEntryRepo journalEntryRepo;
+    private final UserService userService;
+    private final JournalEntryHelper journalEntryHelper;
 
     private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
@@ -69,8 +73,18 @@ public class JournalEntryService {
             System.out.println(e.getMessage());
             throw new RuntimeException("An Error occurred while deleting the entry.",e);
         }
-
-
     }
+
+    public List<JournalEntryDTO> getUserJournalEntries(User user) {
+        try {
+            return user.getJournalEntries().stream()
+                    .map(journalEntryHelper::journalEntryMapper)
+                    .collect(Collectors.toList());
+        } catch (Exception ex) {
+            logger.error("Something bad happened. Caused - {}", ex.getMessage());
+        }
+        return null;
+    }
+
 
 }
