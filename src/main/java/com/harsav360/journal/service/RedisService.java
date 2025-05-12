@@ -2,6 +2,7 @@ package com.harsav360.journal.service;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,10 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class RedisService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    private final RedisTemplate redisTemplate;
 
     public <T> T get(String key, Class<T> weatherResponseClass){
         try {

@@ -31,10 +31,12 @@ public class JournalEntryService {
     private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
     @Transactional
-    public void saveEntry(JournalEntry journalEntry, String userName){
+    public void saveEntry(JournalEntryDTO journalEntryDTO, String userName){
         try {
             User user = userService.findByUserName(userName);
-            journalEntry.setDate(LocalDateTime.now());
+            JournalEntry journalEntry;
+            journalEntryDTO.setDate(LocalDateTime.now());
+            journalEntry = journalEntryHelper.journalDtoToEntryMapper(journalEntryDTO);
             JournalEntry saved = journalEntryRepo.save(journalEntry);
             user.getJournalEntries().add(saved);
             userService.saveUser(user);

@@ -16,4 +16,13 @@ public class JournalEntryHelper {
                 .sentiment(journalEntry.getSentiment())
                 .build();
     }
+
+    public JournalEntry journalDtoToEntryMapper(JournalEntryDTO journalEntryDTO){
+        JournalEntry journalEntry = new JournalEntry();
+        journalEntry.setDate(journalEntryDTO.getDate());
+        journalEntry.setTitle(journalEntryDTO.getTitle());
+        journalEntry.setContent(journalEntryDTO.getContent());
+        journalEntry.setSentiment(journalEntryDTO.getSentiment());
+        return journalEntry;
+    }
 }

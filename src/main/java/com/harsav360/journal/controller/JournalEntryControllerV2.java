@@ -47,7 +47,7 @@ public class JournalEntryControllerV2 {
     }
 
     @PostMapping()
-    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry){
+    public ResponseEntity<JournalEntryDTO> createEntry(@RequestBody JournalEntryDTO myEntry){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try{
@@ -77,7 +77,7 @@ public class JournalEntryControllerV2 {
     }
 
     @DeleteMapping("id/{myId}")
-    public ResponseEntity<?> deleteJournalEntryById(@PathVariable ObjectId myId){
+    public ResponseEntity<String> deleteJournalEntryById(@PathVariable ObjectId myId){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         boolean removed = journalEntryService.deleteById(myId,username);
