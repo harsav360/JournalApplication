@@ -2,6 +2,7 @@ package com.harsav360.journal.service;
 
 import com.harsav360.journal.api.response.WeatherResponse;
 import com.harsav360.journal.cache.AppCache;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -10,20 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@RequiredArgsConstructor
 public class WeatherService {
 
 
     @Value("${weather.api.key}")
     private String apikey;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    private AppCache appCache;
-
-    @Autowired
-    private RedisService redisService;
+    private final RestTemplate restTemplate;
+    private final AppCache appCache;
+    private final RedisService redisService;
 
 
     public WeatherResponse getWeather(String city){

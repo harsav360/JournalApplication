@@ -2,6 +2,7 @@ package com.harsav360.journal.controller;
 
 import com.harsav360.journal.entity.User;
 import com.harsav360.journal.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
+@RequiredArgsConstructor
 public class PublicController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @GetMapping("/health-check")
     public ResponseEntity<String> healthCheck() {

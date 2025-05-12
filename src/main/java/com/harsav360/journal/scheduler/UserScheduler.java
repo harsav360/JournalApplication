@@ -7,6 +7,7 @@ import com.harsav360.journal.model.SentimentData;
 import com.harsav360.journal.repository.UserRepositoryImpl;
 import com.harsav360.journal.service.EmailService;
 import com.harsav360.journal.service.SentimentAnalysisService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class UserScheduler {
 
     @Autowired
@@ -30,12 +32,6 @@ public class UserScheduler {
     private final UserRepositoryImpl userRepositoryImp;
     private final SentimentAnalysisService sentimentAnalysisService;
 
-    @Autowired
-    public UserScheduler(EmailService emailService, UserRepositoryImpl userRepositoryImp, SentimentAnalysisService sentimentAnalysisService) {
-        this.emailService = emailService;
-        this.userRepositoryImp = userRepositoryImp;
-        this.sentimentAnalysisService = sentimentAnalysisService;
-    }
 
     @Scheduled(cron = "0 0 9 * * SUN")
     public void fetchUsersAndSendSaMail() {
